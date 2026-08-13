@@ -1,19 +1,35 @@
-AURA v1.2 — ENQUADRAMENTO INTELIGENTE DE FOTOS
+AURA — IDENTIDADE VISUAL OFICIAL
 
-Melhorias:
-- Cards com área quadrada para aproveitar melhor fotos de bolsas e acessórios.
-- Fundo branco.
-- Produto inteiro, centralizado e sem deformação.
-- Zoom de hover mínimo de 1,5%.
-- Detalhes continuam exibindo a foto completa.
-- Sacola com miniaturas em fundo branco.
-- Pesquisa e filtros usam automaticamente o mesmo novo padrão.
+Este pacote usa as três marcas enviadas:
+1. public/brand/aura-simbolo.webp
+   Símbolo A dourado com ramo. Uso: favicon, ícones e aplicações compactas.
+2. public/brand/aura-logo-clara.webp
+   Logotipo AURA ACESSÓRIOS sobre fundo claro.
+3. public/brand/aura-logo-rose.webp
+   Logotipo AURA ACESSÓRIOS sobre fundo rosé/bege.
+
+Também foram gerados:
+- favicon.ico
+- favicon-16x16.png
+- favicon-32x32.png
+- apple-touch-icon.png
+- icon-192.png
+- icon-512.png
+- site.webmanifest
 
 COMO APLICAR
-1. Extraia este ZIP.
-2. Copie a pasta src para C:\GitHub\AuraCatalogo
-3. Mescle/substitua os arquivos.
-4. GitHub Desktop:
-   AURA v1.2 enquadramento inteligente de fotos
-5. Commit to main → Push origin.
-6. Aguarde o deploy automático da Vercel.
+Copie as pastas public e src deste pacote para:
+C:\GitHub\AuraCatalogo
+
+Escolha substituir/mesclar os arquivos.
+
+Depois, no GitHub Desktop:
+Summary: Atualiza identidade visual e favicon AURA
+Commit to main
+Push origin
+
+A Vercel fará o novo deploy automaticamente.
+
+Observação:
+Navegadores podem manter o favicon antigo em cache. Depois do deploy,
+teste em aba anônima ou feche/reabra o navegador.

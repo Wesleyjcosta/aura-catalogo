@@ -25,7 +25,7 @@ export function StoreInfo() {
       className="mt-16 overflow-hidden rounded-[2rem] border border-border bg-card"
     >
       <div className="grid lg:grid-cols-[1.05fr_0.95fr]">
-        <div className="relative min-h-[360px] bg-muted sm:min-h-[480px] lg:min-h-full">
+        <div className="relative min-h-[360px] bg-white sm:min-h-[480px] lg:min-h-full">
           <img
             src="/brand/aura-loja.webp"
             alt="Entrada da loja física AURA Acessórios em Viçosa, Minas Gerais"
@@ -53,7 +53,7 @@ export function StoreInfo() {
               href={STORE_MAP_URL}
               target="_blank"
               rel="noreferrer"
-              className="group flex gap-3 rounded-2xl border border-border p-4 transition-colors hover:bg-accent"
+              className="flex gap-3 rounded-2xl border border-border p-4 transition-colors hover:bg-accent"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary">
                 <MapPin className="h-4 w-4" aria-hidden="true" />
@@ -94,7 +94,7 @@ export function StoreInfo() {
                   Retirada
                 </span>
                 <span className="mt-1 block text-sm text-foreground">
-                  Compre pelo catálogo e retire diretamente na loja.
+                  Compre pelo catálogo e retire diretamente na loja. Sem taxa de entrega.
                 </span>
               </span>
             </div>

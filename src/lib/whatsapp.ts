@@ -1,10 +1,9 @@
 import type { CartItem } from "./cart";
 import { brl } from "./catalog";
-import { STORE_NAME, STORE_WHATSAPP } from "@/config/store";
+import { STORE_ADDRESS, STORE_NAME, STORE_WHATSAPP } from "@/config/store";
 
 export type Checkout = {
   nome: string;
-  entrega: string;
   observacao: string;
 };
 
@@ -25,7 +24,8 @@ export function buildWhatsappUrl(items: CartItem[], total: number, dados: Checko
     `*TOTAL DO PEDIDO:* ${brl(total)}`,
     "",
     `Nome: ${dados.nome || "-"}`,
-    `Forma de entrega: ${dados.entrega || "-"}`,
+    `Retirada: na loja — grátis`,
+    `Endereço: ${STORE_ADDRESS}`,
     `Observação: ${dados.observacao || "-"}`,
   ].join("\n");
 

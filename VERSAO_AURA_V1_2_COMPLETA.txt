@@ -1,0 +1,59 @@
+AURA v1.2 COMPLETA — 13/08/2026
+
+VERSÃO CUMULATIVA
+Esta versão reúne em UM ÚNICO PROJETO todas as melhorias aprovadas.
+
+IDENTIDADE VISUAL
+- Favicon com símbolo A dourado.
+- Ícones para navegador, iPhone e PWA.
+- Logos oficiais armazenadas em public/brand.
+
+V1.1 INSTITUCIONAL
+- Foto real da loja otimizada em WebP.
+- Seção "Visite nossa loja".
+- Endereço: Galeria Maria Mucci, nº 54, loja 113A — Calçadão, Viçosa/MG.
+- Horário: segunda a sexta 9h–18h30; sábado 9h–13h.
+- Instagram: @auraacessoriosc.
+- WhatsApp: (31) 98340-0829.
+- Slogan: "Acessórios que transformam o básico em incrível!"
+- Pagamento: Pix, crédito, débito e dinheiro.
+- Retirada na loja.
+
+V1.2 FOTOS
+- Fundo branco na área de fotos.
+- Cards quadrados.
+- Produto centralizado e sem deformação.
+- object-contain para preservar a peça inteira.
+- Zoom visual mínimo no hover.
+- Foto completa na tela de detalhes.
+- Fundo branco também na miniatura da sacola.
+- Pesquisa e filtros usam o mesmo padrão.
+
+CORREÇÃO DA SACOLA
+- Removido campo "Forma de entrega".
+- Removidas referências a frete/entrega.
+- Exibido "Retirada na loja — grátis".
+- Endereço exibido diretamente na sacola.
+- Campo Nome mantido.
+- Campo Observação mantido.
+- Mensagem do WhatsApp informa retirada na loja.
+- Texto: pedido reservado e retirada combinada pelo WhatsApp.
+
+DADOS OFICIAIS
+WhatsApp: (31) 98340-0829
+Instagram: @auraacessoriosc
+Endereço: Galeria Maria Mucci, nº 54, loja 113A — Calçadão, Viçosa/MG
+Horário: Seg–Sex 9h–18h30 | Sáb 9h–13h
+Pagamento: Pix, crédito, débito e dinheiro
+Entrega: não disponível
+Retirada: exclusiva na loja e grátis
+
+PUBLICAÇÃO
+1. Faça backup da pasta C:\GitHub\AuraCatalogo.
+2. Extraia este ZIP.
+3. Substitua o conteúdo da pasta AuraCatalogo local pelo conteúdo deste projeto.
+4. NÃO copie a pasta .git do ZIP: mantenha a .git local existente se ela não estiver neste pacote.
+5. Abra o GitHub Desktop.
+6. Commit: "AURA v1.2 completa - institucional, fotos e retirada na loja"
+7. Push origin.
+8. Aguarde a Vercel publicar automaticamente.

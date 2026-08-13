@@ -162,7 +162,7 @@ function Storefront() {
                 className="overflow-hidden rounded-2xl border border-border bg-card"
                 aria-hidden="true"
               >
-                <div className="aspect-[4/5] w-full animate-pulse bg-muted" />
+                <div className="aspect-square w-full animate-pulse bg-white" />
                 <div className="space-y-2 p-4">
                   <div className="h-2 w-1/3 animate-pulse rounded bg-muted" />
                   <div className="h-3 w-3/4 animate-pulse rounded bg-muted" />
@@ -187,7 +187,6 @@ function Storefront() {
           </div>
         )}
       </main>
-
       <div className="mx-auto max-w-6xl px-4">
         <StoreInfo />
       </div>
@@ -196,6 +195,9 @@ function Storefront() {
         <p className="font-display text-lg tracking-[0.3em] text-foreground">{STORE_NAME}</p>
         <p className="mt-1 text-[11px] text-muted-foreground">
           Acessórios que transformam o básico em incrível!
+        </p>
+        <p className="mt-1 text-[10px] text-muted-foreground">
+          Pedidos pelo WhatsApp · retirada exclusiva na loja.
         </p>
       </footer>
 
