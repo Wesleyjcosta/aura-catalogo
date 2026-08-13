@@ -18,14 +18,14 @@ export function ProductCard({
         type="button"
         onClick={() => onOpen(produto)}
         aria-label={`Ver detalhes de ${produto.nome}`}
-        className="relative block aspect-[4/5] w-full overflow-hidden bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="relative block aspect-square w-full overflow-hidden bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {img ? (
           <img
             src={img}
             alt={produto.nome}
             loading="lazy"
-            className="h-full w-full object-contain p-2 transition-opacity duration-300 group-hover:opacity-95"
+            className="h-full w-full object-contain p-1.5 transition-transform duration-300 group-hover:scale-[1.015]"
           />
         ) : (
           <span className="flex h-full w-full items-center justify-center font-display text-2xl text-muted-foreground">

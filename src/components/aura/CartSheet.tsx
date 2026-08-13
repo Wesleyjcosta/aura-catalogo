@@ -82,7 +82,7 @@ export function CartSheet({ open, onClose }: { open: boolean; onClose: () => voi
               key={i.id}
               className="flex gap-3 rounded-2xl bg-card p-3 shadow-soft"
             >
-              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-muted">
+              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
                 {i.imagem && (
                   <img src={i.imagem} alt={i.nome} className="h-full w-full object-contain p-1" />
                 )}

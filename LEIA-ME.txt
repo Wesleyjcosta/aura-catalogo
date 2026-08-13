@@ -1,30 +1,19 @@
-AURA v1.1 — ATUALIZAÇÃO INSTITUCIONAL
+AURA v1.2 — ENQUADRAMENTO INTELIGENTE DE FOTOS
 
-Inclui:
-- Seção "Visite nossa loja" com foto real otimizada em WebP.
-- Endereço da loja com botão para mapa.
-- Horário de funcionamento.
-- Destaque "Compre online e retire na loja".
-- Instagram oficial @auraacessoriosc.
-- WhatsApp oficial (31) 98340-0829.
-- Slogan oficial.
-- Formas de pagamento: Pix, crédito, débito e dinheiro.
-- Atualização do WhatsApp usado na finalização dos pedidos.
+Melhorias:
+- Cards com área quadrada para aproveitar melhor fotos de bolsas e acessórios.
+- Fundo branco.
+- Produto inteiro, centralizado e sem deformação.
+- Zoom de hover mínimo de 1,5%.
+- Detalhes continuam exibindo a foto completa.
+- Sacola com miniaturas em fundo branco.
+- Pesquisa e filtros usam automaticamente o mesmo novo padrão.
 
 COMO APLICAR
 1. Extraia este ZIP.
-2. Copie as pastas "src" e "public" para:
-   C:\GitHub\AuraCatalogo
-3. Escolha mesclar/substituir os arquivos.
-4. Abra GitHub Desktop.
-5. Summary:
-   AURA v1.1 identidade e informações da loja
-6. Commit to main.
-7. Push origin.
-8. Aguarde a Vercel publicar automaticamente.
-
-Arquivos alterados/adicionados:
-- src/config/store.ts
-- src/routes/index.tsx
-- src/components/aura/StoreInfo.tsx
-- public/brand/aura-loja.webp
+2. Copie a pasta src para C:\GitHub\AuraCatalogo
+3. Mescle/substitua os arquivos.
+4. GitHub Desktop:
+   AURA v1.2 enquadramento inteligente de fotos
+5. Commit to main → Push origin.
+6. Aguarde o deploy automático da Vercel.
