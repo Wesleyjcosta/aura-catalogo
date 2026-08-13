@@ -61,7 +61,7 @@ export function ProductSheet({
               <img
                 src={produto.imagem_url || produto.imagem_thumb_url || ""}
                 alt={produto.nome}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-contain p-3"
               />
             ) : (
               <span className="flex h-full w-full items-center justify-center font-display text-3xl text-muted-foreground">

@@ -25,7 +25,7 @@ export function ProductCard({
             src={img}
             alt={produto.nome}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            className="h-full w-full object-contain p-2 transition-opacity duration-300 group-hover:opacity-95"
           />
         ) : (
           <span className="flex h-full w-full items-center justify-center font-display text-2xl text-muted-foreground">

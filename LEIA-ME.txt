@@ -1,0 +1,18 @@
+CORREÇÃO AURA — PROPORÇÃO DAS FOTOS
+
+Arquivos corrigidos:
+- src/components/aura/ProductCard.tsx
+- src/components/aura/ProductSheet.tsx
+- src/components/aura/CartSheet.tsx
+
+O que mudou:
+- object-cover -> object-contain
+- fotos centralizadas e exibidas inteiras
+- remoção do zoom que poderia recortar a foto no card
+- pequeno espaçamento interno para manter apresentação premium
+- aplicada na grade/pesquisa, detalhes e sacola
+
+Copie a pasta src deste pacote sobre a pasta src do repositório:
+C:\GitHub\AuraCatalogo
+
+Depois abra o GitHub Desktop, faça commit e Push origin.
