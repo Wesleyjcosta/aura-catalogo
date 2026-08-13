@@ -8,6 +8,7 @@ import { ProductCard } from "@/components/aura/ProductCard";
 import { ProductSheet } from "@/components/aura/ProductSheet";
 import { CartBar } from "@/components/aura/CartBar";
 import { CartSheet } from "@/components/aura/CartSheet";
+import { StoreInfo } from "@/components/aura/StoreInfo";
 import { STORE_NAME, STORE_TAGLINE } from "@/config/store";
 
 const TITLE = "AURA — Joias & Acessórios | Catálogo online";
@@ -187,11 +188,14 @@ function Storefront() {
         )}
       </main>
 
-      <footer className="mx-auto mt-14 max-w-6xl px-4 pb-6 text-center">
+      <div className="mx-auto max-w-6xl px-4">
+        <StoreInfo />
+      </div>
+
+      <footer className="mx-auto mt-10 max-w-6xl px-4 pb-6 text-center">
         <p className="font-display text-lg tracking-[0.3em] text-foreground">{STORE_NAME}</p>
         <p className="mt-1 text-[11px] text-muted-foreground">
-          Pedidos e dúvidas pelo WhatsApp · disponibilidade, pagamento e entrega confirmados
-          pela loja.
+          Acessórios que transformam o básico em incrível!
         </p>
       </footer>
 

@@ -1,35 +1,30 @@
-AURA — IDENTIDADE VISUAL OFICIAL
+AURA v1.1 — ATUALIZAÇÃO INSTITUCIONAL
 
-Este pacote usa as três marcas enviadas:
-1. public/brand/aura-simbolo.webp
-   Símbolo A dourado com ramo. Uso: favicon, ícones e aplicações compactas.
-2. public/brand/aura-logo-clara.webp
-   Logotipo AURA ACESSÓRIOS sobre fundo claro.
-3. public/brand/aura-logo-rose.webp
-   Logotipo AURA ACESSÓRIOS sobre fundo rosé/bege.
-
-Também foram gerados:
-- favicon.ico
-- favicon-16x16.png
-- favicon-32x32.png
-- apple-touch-icon.png
-- icon-192.png
-- icon-512.png
-- site.webmanifest
+Inclui:
+- Seção "Visite nossa loja" com foto real otimizada em WebP.
+- Endereço da loja com botão para mapa.
+- Horário de funcionamento.
+- Destaque "Compre online e retire na loja".
+- Instagram oficial @auraacessoriosc.
+- WhatsApp oficial (31) 98340-0829.
+- Slogan oficial.
+- Formas de pagamento: Pix, crédito, débito e dinheiro.
+- Atualização do WhatsApp usado na finalização dos pedidos.
 
 COMO APLICAR
-Copie as pastas public e src deste pacote para:
-C:\GitHub\AuraCatalogo
+1. Extraia este ZIP.
+2. Copie as pastas "src" e "public" para:
+   C:\GitHub\AuraCatalogo
+3. Escolha mesclar/substituir os arquivos.
+4. Abra GitHub Desktop.
+5. Summary:
+   AURA v1.1 identidade e informações da loja
+6. Commit to main.
+7. Push origin.
+8. Aguarde a Vercel publicar automaticamente.
 
-Escolha substituir/mesclar os arquivos.
-
-Depois, no GitHub Desktop:
-Summary: Atualiza identidade visual e favicon AURA
-Commit to main
-Push origin
-
-A Vercel fará o novo deploy automaticamente.
-
-Observação:
-Navegadores podem manter o favicon antigo em cache. Depois do deploy,
-teste em aba anônima ou feche/reabra o navegador.
+Arquivos alterados/adicionados:
+- src/config/store.ts
+- src/routes/index.tsx
+- src/components/aura/StoreInfo.tsx
+- public/brand/aura-loja.webp
