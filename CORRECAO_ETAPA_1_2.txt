@@ -1,0 +1,14 @@
+AURA — Correção da Etapa 1.2
+
+Motivo:
+O patch anterior da Etapa 1.2 substituiu src/config/store.ts por uma versão
+reduzida e removeu o export STORE_ADDRESS, ainda utilizado por CartSheet.tsx
+e src/lib/whatsapp.ts.
+
+Aplicação:
+1. Extraia este ZIP.
+2. Copie a pasta src para C:\GitHub\AuraCatalogo
+3. Confirme a substituição do arquivo src\config\store.ts
+4. Faça commit e push no GitHub Desktop.
+
+Esta correção não altera o Header nem o Hero.
