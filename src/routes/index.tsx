@@ -1,15 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { Search, ShoppingBag } from "lucide-react";
+import { Search } from "lucide-react";
 import { catalogoQuery, type Produto } from "@/lib/catalog";
 import { CartProvider, useCart } from "@/lib/cart";
 import { ProductCard } from "@/components/aura/ProductCard";
 import { ProductSheet } from "@/components/aura/ProductSheet";
 import { CartBar } from "@/components/aura/CartBar";
 import { CartSheet } from "@/components/aura/CartSheet";
-import { StoreInfo } from "@/components/aura/StoreInfo";
-import { STORE_NAME, STORE_TAGLINE } from "@/config/store";
+import { StoreHeader } from "@/components/aura/StoreHeader";
+import { STORE_NAME } from "@/config/store";
 
 const TITLE = "AURA — Joias & Acessórios | Catálogo online";
 const DESCRIPTION =
@@ -63,32 +63,8 @@ function Storefront() {
   }, [data, busca, categoria]);
 
   return (
-    <div className="min-h-screen bg-background pb-28">
-      <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <div>
-            <p className="font-display text-2xl leading-none tracking-[0.28em] text-foreground">
-              {STORE_NAME}
-            </p>
-            <p className="text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
-              {STORE_TAGLINE}
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => setSacolaAberta(true)}
-            aria-label={`Abrir sacola (${count} peças)`}
-            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-border bg-card text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <ShoppingBag className="h-4.5 w-4.5" aria-hidden="true" />
-            {count > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[10px] font-semibold text-gold-foreground">
-                {count}
-              </span>
-            )}
-          </button>
-        </div>
-      </header>
+    <div id="inicio" className="min-h-screen bg-background pb-28">
+      <StoreHeader count={count} onCartOpen={() => setSacolaAberta(true)} />
 
       <main className="mx-auto max-w-6xl px-4">
         <nav aria-label="Categorias" className="-mx-4 overflow-x-auto px-4 pt-4">
@@ -162,7 +138,7 @@ function Storefront() {
                 className="overflow-hidden rounded-2xl border border-border bg-card"
                 aria-hidden="true"
               >
-                <div className="aspect-square w-full animate-pulse bg-white" />
+                <div className="aspect-[4/5] w-full animate-pulse bg-muted" />
                 <div className="space-y-2 p-4">
                   <div className="h-2 w-1/3 animate-pulse rounded bg-muted" />
                   <div className="h-3 w-3/4 animate-pulse rounded bg-muted" />
@@ -187,17 +163,12 @@ function Storefront() {
           </div>
         )}
       </main>
-      <div className="mx-auto max-w-6xl px-4">
-        <StoreInfo />
-      </div>
 
-      <footer className="mx-auto mt-10 max-w-6xl px-4 pb-6 text-center">
+      <footer className="mx-auto mt-14 max-w-6xl px-4 pb-6 text-center">
         <p className="font-display text-lg tracking-[0.3em] text-foreground">{STORE_NAME}</p>
         <p className="mt-1 text-[11px] text-muted-foreground">
-          Acessórios que transformam o básico em incrível!
-        </p>
-        <p className="mt-1 text-[10px] text-muted-foreground">
-          Pedidos pelo WhatsApp · retirada exclusiva na loja.
+          Pedidos e dúvidas pelo WhatsApp · disponibilidade, pagamento e entrega confirmados
+          pela loja.
         </p>
       </footer>
 
