@@ -9,6 +9,7 @@ import { ProductSheet } from "@/components/aura/ProductSheet";
 import { CartBar } from "@/components/aura/CartBar";
 import { CartSheet } from "@/components/aura/CartSheet";
 import { StoreHeader } from "@/components/aura/StoreHeader";
+import { HeroSection } from "@/components/aura/HeroSection";
 import { STORE_NAME } from "@/config/store";
 
 const TITLE = "AURA — Joias & Acessórios | Catálogo online";
@@ -65,8 +66,9 @@ function Storefront() {
   return (
     <div id="inicio" className="min-h-screen bg-background pb-28">
       <StoreHeader count={count} onCartOpen={() => setSacolaAberta(true)} />
+      <HeroSection />
 
-      <main className="mx-auto max-w-6xl px-4">
+      <main id="colecoes" className="mx-auto max-w-6xl px-4">
         <nav aria-label="Categorias" className="-mx-4 overflow-x-auto px-4 pt-4">
           <ul className="flex gap-2 pb-1">
             {categorias.map((c) => (
