@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
 import { catalogoQuery, type Produto } from "@/lib/catalog";
 import { CartProvider, useCart } from "@/lib/cart";
 import { ProductCard } from "@/components/aura/ProductCard";
@@ -10,6 +9,7 @@ import { CartBar } from "@/components/aura/CartBar";
 import { CartSheet } from "@/components/aura/CartSheet";
 import { StoreHeader } from "@/components/aura/StoreHeader";
 import { HeroSection } from "@/components/aura/HeroSection";
+import { CatalogControls, type CatalogCategory } from "@/components/aura/CatalogControls";
 import { STORE_NAME } from "@/config/store";
 
 const TITLE = "AURA — Joias & Acessórios | Catálogo online";
@@ -34,6 +34,46 @@ export const Route = createFileRoute("/")({
   ),
 });
 
+function normalizarCategoria(valor: string) {
+  return valor
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLocaleLowerCase("pt-BR");
+}
+
+function categoriaCanonica(normalizada: string) {
+  const aliases: Record<string, string> = {
+    bolsa: "Bolsas",
+    bolsas: "Bolsas",
+    colar: "Colares",
+    colares: "Colares",
+    pulseira: "Pulseiras",
+    pulseiras: "Pulseiras",
+    brinco: "Brincos",
+    brincos: "Brincos",
+    anel: "Anéis",
+    aneis: "Anéis",
+    oculos: "Óculos",
+    acessorio: "Acessórios",
+    acessorios: "Acessórios",
+  };
+  return aliases[normalizada] ?? null;
+}
+
+function categoriaCorresponde(categoriaProduto: string, categoriaSelecionada: string) {
+  const produtoNormalizado = normalizarCategoria(categoriaProduto);
+  const selecionadaNormalizada = normalizarCategoria(categoriaSelecionada);
+  const produtoCanonico = categoriaCanonica(produtoNormalizado);
+  const selecionadaCanonica = categoriaCanonica(selecionadaNormalizada);
+
+  if (produtoCanonico || selecionadaCanonica) {
+    return produtoCanonico === selecionadaCanonica;
+  }
+
+  return produtoNormalizado === selecionadaNormalizada;
+}
+
 function Storefront() {
   const { data, isLoading, isError, refetch } = useQuery(catalogoQuery);
   const { count } = useCart();
@@ -42,19 +82,46 @@ function Storefront() {
   const [selecionado, setSelecionado] = useState<Produto | null>(null);
   const [sacolaAberta, setSacolaAberta] = useState(false);
 
-  const categorias = useMemo(() => {
-    const set = new Set<string>();
-    (data ?? []).forEach((p) => {
-      const c = p.categoria?.trim();
-      if (c) set.add(c);
+  const categorias = useMemo<CatalogCategory[]>(() => {
+    const padrao: CatalogCategory[] = [
+      { label: "Todos", value: "Todos" },
+      { label: "Bolsas", value: "Bolsas" },
+      { label: "Colares", value: "Colares" },
+      { label: "Pulseiras", value: "Pulseiras" },
+      { label: "Brincos", value: "Brincos" },
+      { label: "Anéis", value: "Anéis" },
+      { label: "Óculos", value: "Óculos" },
+      { label: "Acessórios", value: "Acessórios" },
+    ];
+
+    const conhecidos = new Set(
+      padrao.slice(1).map((item) => normalizarCategoria(item.value)),
+    );
+    const extras = new Map<string, string>();
+
+    (data ?? []).forEach((produto) => {
+      const original = produto.categoria?.trim();
+      if (!original) return;
+      const normalizada = normalizarCategoria(original);
+      const canonica = categoriaCanonica(normalizada);
+      if (canonica) return;
+      if (!conhecidos.has(normalizada) && !extras.has(normalizada)) {
+        extras.set(normalizada, original);
+      }
     });
-    return ["Todos", ...Array.from(set).sort((a, b) => a.localeCompare(b, "pt-BR"))];
+
+    const adicionais = Array.from(extras.values())
+      .sort((a, b) => a.localeCompare(b, "pt-BR"))
+      .map((label) => ({ label, value: label }));
+
+    return [...padrao, ...adicionais];
   }, [data]);
 
   const produtos = useMemo(() => {
     const termo = busca.trim().toLowerCase();
     return (data ?? []).filter((p) => {
-      const catOk = categoria === "Todos" || (p.categoria?.trim() || "") === categoria;
+      const catOk =
+        categoria === "Todos" || categoriaCorresponde(p.categoria ?? "", categoria);
       if (!catOk) return false;
       if (!termo) return true;
       return [p.nome, p.codigo, p.referencia, p.categoria, p.material]
@@ -69,41 +136,13 @@ function Storefront() {
       <HeroSection />
 
       <main id="colecoes" className="mx-auto max-w-6xl px-4">
-        <nav aria-label="Categorias" className="-mx-4 overflow-x-auto px-4 pt-4">
-          <ul className="flex gap-2 pb-1">
-            {categorias.map((c) => (
-              <li key={c}>
-                <button
-                  type="button"
-                  onClick={() => setCategoria(c)}
-                  aria-pressed={categoria === c}
-                  className={`whitespace-nowrap rounded-full border px-4 py-2 text-xs font-medium uppercase tracking-[0.12em] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                    categoria === c
-                      ? "border-foreground bg-foreground text-background"
-                      : "border-border bg-card text-muted-foreground hover:bg-accent"
-                  }`}
-                >
-                  {c}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="relative mt-4">
-          <Search
-            className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
-            aria-hidden="true"
-          />
-          <input
-            type="search"
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            aria-label="Buscar peças"
-            placeholder="Buscar por nome, código ou material"
-            className="w-full rounded-full border border-border bg-card py-3.5 pl-11 pr-4 text-sm text-foreground outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring"
-          />
-        </div>
+        <CatalogControls
+          busca={busca}
+          onBuscaChange={setBusca}
+          categoria={categoria}
+          onCategoriaChange={setCategoria}
+          categorias={categorias}
+        />
 
         <div className="mt-7 flex items-end justify-between gap-4">
           <div>
