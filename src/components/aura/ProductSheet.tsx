@@ -13,7 +13,9 @@ export function ProductSheet({
   const { add } = useCart();
   const [qtd, setQtd] = useState(1);
 
-  useEffect(() => setQtd(1), [produto?.id_publico]);
+  useEffect(() => {
+    if (produto) setQtd(1);
+  }, [produto]);
 
   useEffect(() => {
     if (!produto) return;

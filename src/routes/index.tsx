@@ -16,6 +16,17 @@ const TITLE = "AURA — Joias & Acessórios | Catálogo online";
 const DESCRIPTION =
   "Explore a coleção AURA de joias e acessórios: peças selecionadas, preços atualizados e pedido direto pelo WhatsApp.";
 
+const CATALOG_SKELETON_KEYS = [
+  "catalog-skeleton-1",
+  "catalog-skeleton-2",
+  "catalog-skeleton-3",
+  "catalog-skeleton-4",
+  "catalog-skeleton-5",
+  "catalog-skeleton-6",
+  "catalog-skeleton-7",
+  "catalog-skeleton-8",
+] as const;
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -173,9 +184,9 @@ function Storefront() {
 
         {isLoading && (
           <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-            {Array.from({ length: 8 }).map((_, i) => (
+            {CATALOG_SKELETON_KEYS.map((skeletonKey) => (
               <div
-                key={i}
+                key={skeletonKey}
                 className="overflow-hidden rounded-2xl border border-border bg-card"
                 aria-hidden="true"
               >
