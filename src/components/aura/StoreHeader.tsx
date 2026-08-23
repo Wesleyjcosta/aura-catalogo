@@ -36,7 +36,7 @@ export function StoreHeader({
 
         {/* Brand */}
         <a
-          href="#inicio"
+          href="/"
           aria-label="AURA Acessórios — voltar ao início"
           onClick={closeMenu}
           className="absolute left-1/2 flex -translate-x-1/2 items-center gap-3 lg:static lg:translate-x-0"
