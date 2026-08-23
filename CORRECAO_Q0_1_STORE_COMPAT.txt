@@ -1,0 +1,13 @@
+Q0.1 — Correção de compatibilidade do store.ts
+
+Restaura exports exigidos pelo StoreInfo.tsx:
+- STORE_HOURS
+- STORE_MAP_URL
+- STORE_WHATSAPP_DISPLAY
+- STORE_WHATSAPP_URL
+
+Não altera Header, Hero, busca, categorias ou layout.
+Mantém os dados oficiais já definidos para a AURA.
+
+Aplicar ainda na branch:
+chore/q0-1-quality-gate
