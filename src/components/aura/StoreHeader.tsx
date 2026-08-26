@@ -21,7 +21,7 @@ export function StoreHeader({
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-gold/25 bg-background/95 shadow-[0_1px_14px_oklch(0.35_0.025_75_/_0.05)] backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-border bg-white/96 shadow-[0_1px_12px_oklch(0.15_0_0_/_0.045)] backdrop-blur-xl">
       <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-[88px] lg:px-8">
         {/* Mobile menu */}
         <button

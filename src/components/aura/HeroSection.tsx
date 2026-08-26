@@ -5,15 +5,10 @@ export function HeroSection() {
   return (
     <section
       aria-labelledby="aura-hero-title"
-      className="border-b border-gold/20 bg-[oklch(0.982_0.01_82)]"
+      className="border-b border-border bg-white"
     >
       <div className="mx-auto grid max-w-7xl overflow-hidden lg:min-h-[470px] lg:grid-cols-[0.92fr_1.08fr]">
         <div className="relative flex items-center px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-14 xl:px-16">
-          <div
-            aria-hidden="true"
-            className="absolute -left-20 top-6 h-56 w-56 rounded-full bg-gold/10 blur-3xl"
-          />
-
           <div className="relative max-w-xl">
             <p className="mb-5 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.26em] text-gold-strong">
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
@@ -47,7 +42,7 @@ export function HeroSection() {
                 href={HERO_CONTENT.secondaryButton.href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-lg border border-gold-strong/55 bg-white/65 px-6 text-sm font-medium text-foreground transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="inline-flex min-h-12 items-center justify-center gap-2.5 rounded-lg border border-border bg-white px-6 text-sm font-medium text-foreground shadow-sm transition-[transform,border-color,box-shadow] duration-200 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-foreground/25 hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
                 <MessageCircle className="h-[18px] w-[18px]" aria-hidden="true" />
                 {HERO_CONTENT.secondaryButton.label}
@@ -67,7 +62,7 @@ export function HeroSection() {
           />
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-r from-[oklch(0.982_0.01_82/0.2)] via-transparent to-transparent lg:from-[oklch(0.982_0.01_82/0.08)]"
+            className="absolute inset-0 bg-gradient-to-r from-white/18 via-transparent to-transparent lg:from-white/8"
           />
         </div>
       </div>

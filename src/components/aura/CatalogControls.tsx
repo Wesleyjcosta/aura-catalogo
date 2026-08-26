@@ -67,7 +67,7 @@ export function CatalogControls({
                     className={`min-w-[92px] whitespace-nowrap rounded-full border px-5 py-2.5 text-xs font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:min-w-[104px] sm:text-sm ${
                       ativo
                         ? "border-gold-strong bg-gold-strong text-white shadow-soft"
-                        : "border-border bg-card text-foreground hover:border-gold hover:bg-gold/10"
+                        : "border-border bg-white text-foreground hover:border-foreground/25 hover:bg-accent"
                     }`}
                   >
                     {item.label}
