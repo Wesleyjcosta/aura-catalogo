@@ -3,7 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { catalogoQuery, type Produto } from "@/lib/catalog";
 import { CartProvider, useCart } from "@/lib/cart";
-import { ProductCard } from "@/components/aura/ProductCard";
+import { ProductGrid } from "@/components/aura/ProductGrid";
+import { ProductStory } from "@/components/aura/ProductStory";
 import { ProductSheet } from "@/components/aura/ProductSheet";
 import { CartBar } from "@/components/aura/CartBar";
 import { CartSheet } from "@/components/aura/CartSheet";
@@ -16,16 +17,6 @@ const TITLE = "AURA — Joias & Acessórios | Catálogo online";
 const DESCRIPTION =
   "Explore a coleção AURA de joias e acessórios: peças selecionadas, preços atualizados e pedido direto pelo WhatsApp.";
 
-const CATALOG_SKELETON_KEYS = [
-  "catalog-skeleton-1",
-  "catalog-skeleton-2",
-  "catalog-skeleton-3",
-  "catalog-skeleton-4",
-  "catalog-skeleton-5",
-  "catalog-skeleton-6",
-  "catalog-skeleton-7",
-  "catalog-skeleton-8",
-] as const;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -86,7 +77,7 @@ function categoriaCorresponde(categoriaProduto: string, categoriaSelecionada: st
 }
 
 function Storefront() {
-  const { data, isLoading, isError, refetch } = useQuery(catalogoQuery);
+  const { data, isLoading, isError, isFetching, refetch } = useQuery(catalogoQuery);
   const { count } = useCart();
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState("Todos");
@@ -164,63 +155,28 @@ function Storefront() {
               Escolha sua próxima peça
             </h1>
           </div>
-          <p className="shrink-0 text-xs text-muted-foreground">
+          <p className="shrink-0 text-xs text-muted-foreground" aria-live="polite">
             {isLoading ? "Carregando…" : `${produtos.length} peças`}
           </p>
         </div>
 
-        {isError && (
-          <div className="mt-8 rounded-2xl border border-border bg-card p-6 text-center">
-            <p className="text-sm text-foreground">Não foi possível carregar a coleção.</p>
-            <button
-              type="button"
-              onClick={() => refetch()}
-              className="mt-3 rounded-full bg-foreground px-5 py-2.5 text-xs font-medium uppercase tracking-[0.14em] text-background"
-            >
-              Tentar novamente
-            </button>
-          </div>
-        )}
-
-        {isLoading && (
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-            {CATALOG_SKELETON_KEYS.map((skeletonKey) => (
-              <div
-                key={skeletonKey}
-                className="overflow-hidden rounded-2xl border border-border bg-card"
-                aria-hidden="true"
-              >
-                <div className="aspect-[4/5] w-full animate-pulse bg-muted" />
-                <div className="space-y-2 p-4">
-                  <div className="h-2 w-1/3 animate-pulse rounded bg-muted" />
-                  <div className="h-3 w-3/4 animate-pulse rounded bg-muted" />
-                  <div className="h-8 w-full animate-pulse rounded-full bg-muted" />
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {!isLoading && !isError && produtos.length === 0 && (
-          <p className="mt-10 text-center text-sm text-muted-foreground">
-            Nenhuma peça encontrada para esta busca.
-          </p>
-        )}
-
-        {!isLoading && produtos.length > 0 && (
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-            {produtos.map((p) => (
-              <ProductCard key={p.id_publico} produto={p} onOpen={setSelecionado} />
-            ))}
-          </div>
-        )}
+        <ProductGrid
+          produtos={produtos}
+          isLoading={isLoading}
+          isError={isError}
+          isRetrying={isError && isFetching}
+          onRetry={() => void refetch()}
+          onOpen={setSelecionado}
+        />
       </main>
+
+      <ProductStory />
 
       <footer className="mx-auto mt-14 max-w-6xl px-4 pb-6 text-center">
         <p className="font-display text-lg tracking-[0.3em] text-foreground">{STORE_NAME}</p>
         <p className="mt-1 text-[11px] text-muted-foreground">
-          Pedidos e dúvidas pelo WhatsApp · disponibilidade, pagamento e entrega confirmados
-          pela loja.
+          Pedidos e dúvidas pelo WhatsApp · disponibilidade, pagamento e retirada na loja
+          confirmados pela equipe AURA.
         </p>
       </footer>
 
