@@ -24,30 +24,30 @@ const DETAIL_CALLOUTS = [
   {
     label: "Alça",
     className: "left-[3%] top-[21%]",
-    lineClassName: "w-20 lg:w-28",
+    lineClassName: "w-14 lg:w-24",
     enter: [0.38, 0.44],
-    exit: [0.72, 0.8],
+    exit: [0.68, 0.74],
   },
   {
     label: "Acabamento",
     className: "right-[1%] top-[35%] flex-row-reverse",
-    lineClassName: "w-16 lg:w-24",
+    lineClassName: "w-14 lg:w-20",
     enter: [0.44, 0.5],
-    exit: [0.74, 0.82],
+    exit: [0.7, 0.76],
   },
   {
     label: "Estrutura",
     className: "right-[3%] top-[59%] flex-row-reverse",
-    lineClassName: "w-16 lg:w-24",
+    lineClassName: "w-12 lg:w-20",
     enter: [0.5, 0.56],
-    exit: [0.76, 0.84],
+    exit: [0.72, 0.78],
   },
   {
     label: "Detalhes dourados",
     className: "left-[5%] top-[73%]",
-    lineClassName: "w-16 lg:w-24",
+    lineClassName: "w-12 lg:w-20",
     enter: [0.56, 0.62],
-    exit: [0.78, 0.86],
+    exit: [0.74, 0.8],
   },
 ] as const;
 
@@ -104,27 +104,27 @@ export function ProductStory() {
     };
   }, [reduceMotion]);
 
-  const approach = rangeProgress(progress, 0.06, 0.34);
+  const approach = rangeProgress(progress, 0.08, 0.34);
   const detailBlend = reduceMotion
     ? 0
-    : enterExit(progress, 0.28, 0.44, 0.7, 0.84);
-  const returnProgress = rangeProgress(progress, 0.74, 0.9);
+    : enterExit(progress, 0.3, 0.42, 0.68, 0.8);
+  const returnProgress = rangeProgress(progress, 0.76, 0.92);
 
-  const mainScale = reduceMotion ? 1 : 1.04 + approach * 0.16 - returnProgress * 0.16;
-  const mainTranslateY = reduceMotion ? 0 : approach * -16 + returnProgress * 16;
+  const mainScale = reduceMotion ? 1 : 1 + approach * 0.12 - returnProgress * 0.07;
+  const mainTranslateY = reduceMotion ? 0 : approach * -11 + returnProgress * 7;
   const mainOpacity = reduceMotion ? 1 : 1 - detailBlend * 0.93;
 
-  const detailScale = reduceMotion ? 1 : 1.015 + rangeProgress(progress, 0.36, 0.68) * 0.045;
-  const detailTranslateY = reduceMotion ? 0 : -4 + rangeProgress(progress, 0.36, 0.68) * -7;
+  const detailScale = reduceMotion ? 1 : 1.02 + rangeProgress(progress, 0.38, 0.66) * 0.06;
+  const detailTranslateY = reduceMotion ? 0 : -6 + rangeProgress(progress, 0.38, 0.66) * -8;
 
-  const introOpacity = reduceMotion ? 1 : 1 - rangeProgress(progress, 0.06, 0.21);
+  const introOpacity = reduceMotion ? 1 : 1 - rangeProgress(progress, 0.08, 0.24);
   const detailTitleOpacity = reduceMotion
     ? 0
-    : enterExit(progress, 0.3, 0.4, 0.7, 0.8);
-  const finalOpacity = reduceMotion ? 1 : rangeProgress(progress, 0.84, 0.94);
+    : enterExit(progress, 0.32, 0.4, 0.69, 0.77);
+  const finalOpacity = reduceMotion ? 1 : rangeProgress(progress, 0.84, 0.96);
   const mobileLabelsOpacity = reduceMotion
     ? 1
-    : enterExit(progress, 0.4, 0.5, 0.72, 0.82);
+    : enterExit(progress, 0.4, 0.5, 0.69, 0.79);
 
   return (
     <section
@@ -132,7 +132,7 @@ export function ProductStory() {
       ref={sectionRef}
       aria-label="Explore os detalhes da bolsa AURA"
       className={`relative bg-white ${
-        reduceMotion ? "h-auto" : "h-[250vh] sm:h-[300vh] lg:h-[320vh]"
+        reduceMotion ? "h-auto" : "h-[240vh] sm:h-[280vh]"
       }`}
     >
       <div
@@ -151,7 +151,7 @@ export function ProductStory() {
               <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-gold-strong">
                 AURA em detalhes
               </p>
-              <h2 className="mx-auto mt-2 max-w-2xl font-display text-3xl leading-[0.98] text-foreground sm:text-5xl lg:text-[64px]">
+              <h2 className="mx-auto mt-2 max-w-2xl font-display text-3xl leading-[0.98] text-foreground sm:text-5xl lg:text-6xl">
                 Conheça de perto
               </h2>
               <p className="mx-auto mt-3 max-w-lg text-xs leading-relaxed text-muted-foreground sm:text-sm">
@@ -172,7 +172,7 @@ export function ProductStory() {
               </p>
             </div>
 
-            <div className="relative mt-12 h-[64vh] min-h-[430px] w-full max-w-5xl sm:mt-8 sm:h-[74vh] sm:min-h-[560px] lg:h-[76vh]">
+            <div className="relative mt-14 h-[61vh] min-h-[410px] w-full max-w-4xl sm:mt-10 sm:h-[69vh] sm:min-h-[520px]">
               <div
                 className="absolute inset-0 will-change-transform motion-reduce:transform-none"
                 style={{
@@ -195,7 +195,7 @@ export function ProductStory() {
               </div>
 
               <div
-                className="absolute inset-[4%] overflow-hidden rounded-[1.75rem] bg-white shadow-[0_28px_75px_rgba(20,18,15,.08)] ring-1 ring-black/[0.045] sm:inset-[1%_5%] lg:inset-[0_4%]"
+                className="absolute inset-[4%] overflow-hidden rounded-[1.75rem] bg-white shadow-[0_28px_75px_rgba(20,18,15,.08)] ring-1 ring-black/[0.045] sm:inset-[2%_8%]"
                 style={{
                   opacity: detailBlend,
                   transform: `translate3d(0, ${detailTranslateY}px, 0) scale(${detailScale})`,
@@ -236,7 +236,7 @@ export function ProductStory() {
                         transform: `translate3d(0, ${(1 - opacity) * 7}px, 0)`,
                       }}
                     >
-                      <span className="rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-foreground shadow-soft ring-1 ring-foreground/10 backdrop-blur-sm">
+                      <span className="rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-foreground shadow-soft ring-1 ring-foreground/10 backdrop-blur-sm">
                         {detail.label}
                       </span>
                       <span className={`h-px bg-gold-strong/75 ${detail.lineClassName}`} />
@@ -274,13 +274,13 @@ export function ProductStory() {
               <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-gold-strong">
                 Sua escolha
               </p>
-              <p className="mt-1 font-display text-3xl leading-tight text-foreground sm:text-4xl">
+              <p className="mt-1 font-display text-2xl leading-tight text-foreground sm:text-3xl">
                 Essência que acompanha você
               </p>
               <a
                 href="#colecoes"
                 tabIndex={reduceMotion || finalOpacity >= 0.5 ? 0 : -1}
-                className="mt-4 inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-background transition-[transform,opacity] duration-150 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:opacity-90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none"
+                className="mt-3 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-background transition-[transform,opacity] duration-150 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] hover:opacity-90 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none"
               >
                 Ver coleção
                 <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
