@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { MapPin, Minus, Plus, Store, Trash2, X } from "lucide-react";
+import { Minus, Plus, Trash2, X } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { brl } from "@/lib/catalog";
 import { buildWhatsappUrl } from "@/lib/whatsapp";
-import { STORE_ADDRESS } from "@/config/store";
 
 export function CartSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { items, count, total, setQtd, remove, clear } = useCart();
   const [nome, setNome] = useState("");
+  const [entrega, setEntrega] = useState("");
   const [observacao, setObservacao] = useState("");
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export function CartSheet({ open, onClose }: { open: boolean; onClose: () => voi
 
   const enviar = () => {
     if (items.length === 0) return;
-    window.open(buildWhatsappUrl(items, total, { nome, observacao }), "_blank");
+    window.open(buildWhatsappUrl(items, total, { nome, entrega, observacao }), "_blank");
   };
 
   return (
@@ -82,7 +82,7 @@ export function CartSheet({ open, onClose }: { open: boolean; onClose: () => voi
               key={i.id}
               className="flex gap-3 rounded-2xl bg-card p-3 shadow-soft"
             >
-              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-white">
+              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-muted">
                 {i.imagem && (
                   <img src={i.imagem} alt={i.nome} className="h-full w-full object-contain p-1" />
                 )}
@@ -141,25 +141,15 @@ export function CartSheet({ open, onClose }: { open: boolean; onClose: () => voi
                   placeholder="Seu nome"
                 />
               </label>
-              <div className="rounded-2xl border border-border bg-white p-3.5">
-                <div className="flex gap-3">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary">
-                    <Store className="h-4 w-4" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                      Retirada do pedido
-                    </p>
-                    <p className="mt-1 text-sm font-semibold text-foreground">
-                      Retirada na loja — grátis
-                    </p>
-                    <p className="mt-1 flex gap-1.5 text-xs leading-relaxed text-muted-foreground">
-                      <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />
-                      <span>{STORE_ADDRESS}</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <label className="block text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
+                Forma de entrega
+                <input
+                  value={entrega}
+                  onChange={(e) => setEntrega(e.target.value)}
+                  className="mt-1 w-full rounded-xl border border-border bg-card px-3 py-2 text-sm normal-case tracking-normal text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  placeholder="Retirada ou entrega"
+                />
+              </label>
               <label className="block text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                 Observação
                 <textarea
@@ -197,7 +187,7 @@ export function CartSheet({ open, onClose }: { open: boolean; onClose: () => voi
             Continuar comprando
           </button>
           <p className="text-center text-[10px] leading-relaxed text-muted-foreground">
-            Seu pedido será reservado e a retirada na loja será combinada pelo WhatsApp.
+            A loja confirmará disponibilidade, pagamento e entrega pelo WhatsApp.
           </p>
         </footer>
       </section>

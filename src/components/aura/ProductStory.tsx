@@ -128,17 +128,18 @@ export function ProductStory() {
 
   return (
     <section
+      id="destaque"
       ref={sectionRef}
       aria-label="Explore os detalhes da bolsa AURA"
-      className={`relative mt-20 bg-white sm:mt-28 ${
-        reduceMotion ? "h-auto" : "h-[230vh] sm:h-[270vh]"
+      className={`relative bg-white ${
+        reduceMotion ? "h-auto" : "h-[240vh] sm:h-[280vh]"
       }`}
     >
       <div
         className={`${
           reduceMotion
             ? "relative min-h-[780px] sm:min-h-[860px]"
-            : "sticky top-20 h-[calc(100vh-5rem)] min-h-[620px] sm:top-24 sm:h-[calc(100vh-6rem)]"
+            : "sticky top-[76px] h-[calc(100svh-76px)] min-h-[600px] lg:top-[88px] lg:h-[calc(100svh-88px)]"
         } flex items-center overflow-hidden bg-white`}
       >
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
