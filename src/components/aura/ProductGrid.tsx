@@ -31,13 +31,12 @@ export function ProductGrid({
   onRetry,
   onOpen,
 }: ProductGridProps) {
+  const gridClass =
+    "mt-10 grid grid-cols-2 gap-x-4 gap-y-12 sm:gap-x-6 sm:gap-y-14 lg:grid-cols-4 lg:gap-x-7 lg:gap-y-16";
+
   if (isLoading) {
     return (
-      <section
-        className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
-        aria-label="Carregando produtos"
-        aria-busy="true"
-      >
+      <section className={gridClass} aria-label="Carregando produtos" aria-busy="true">
         {SKELETON_KEYS.map((key) => (
           <ProductCardSkeleton key={key} />
         ))}
@@ -48,27 +47,22 @@ export function ProductGrid({
   if (isError) {
     return (
       <section
-        className="mt-8 rounded-3xl bg-card px-6 py-10 text-center shadow-soft ring-1 ring-foreground/5"
+        className="mt-12 border-y border-border px-4 py-14 text-center sm:py-16"
         aria-live="polite"
       >
-        <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-gold/15 text-gold-strong">
-          <RefreshCw className="h-5 w-5" aria-hidden="true" />
-        </div>
-        <h2 className="mt-4 font-display text-2xl text-foreground">
+        <RefreshCw className="mx-auto h-5 w-5 text-gold-strong" aria-hidden="true" />
+        <h2 className="mt-5 font-display text-2xl text-foreground sm:text-3xl">
           Não foi possível carregar a coleção
         </h2>
-        <p className="mx-auto mt-1 max-w-md text-sm leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
           Verifique sua conexão e tente novamente. Nenhuma alteração foi feita na sua sacola.
         </p>
         <button
           type="button"
           onClick={onRetry}
           disabled={isRetrying}
-          className="mt-5 inline-flex min-w-44 items-center justify-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.14em] text-background transition-[transform,opacity] duration-150 [transition-timing-function:cubic-bezier(0.22,1,0.36,1)] motion-reduce:transform-none motion-reduce:transition-none hover:opacity-90 active:scale-[0.98] disabled:cursor-wait disabled:opacity-65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="mt-6 border-b border-foreground pb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-foreground transition-opacity duration-150 hover:opacity-60 disabled:cursor-wait disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4"
         >
-          {isRetrying && (
-            <RefreshCw className="h-3.5 w-3.5 animate-spin motion-reduce:animate-none" aria-hidden="true" />
-          )}
           {isRetrying ? "Tentando…" : "Tentar novamente"}
         </button>
       </section>
@@ -77,12 +71,12 @@ export function ProductGrid({
 
   if (produtos.length === 0) {
     return (
-      <section className="mt-10 rounded-3xl bg-card px-6 py-12 text-center shadow-soft ring-1 ring-foreground/5">
-        <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-gold/15 text-gold-strong">
-          <SearchX className="h-5 w-5" aria-hidden="true" />
-        </div>
-        <h2 className="mt-4 font-display text-2xl text-foreground">Nenhuma peça encontrada</h2>
-        <p className="mx-auto mt-1 max-w-md text-sm leading-relaxed text-muted-foreground">
+      <section className="mt-12 border-y border-border px-4 py-14 text-center sm:py-16">
+        <SearchX className="mx-auto h-5 w-5 text-gold-strong" aria-hidden="true" />
+        <h2 className="mt-5 font-display text-2xl text-foreground sm:text-3xl">
+          Nenhuma peça encontrada
+        </h2>
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
           Tente outro nome, código, material ou selecione uma categoria diferente.
         </p>
       </section>
@@ -90,7 +84,7 @@ export function ProductGrid({
   }
 
   return (
-    <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+    <div className={gridClass}>
       {produtos.map((produto) => (
         <ProductCard key={produto.id_publico} produto={produto} onOpen={onOpen} />
       ))}
