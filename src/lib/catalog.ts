@@ -16,39 +16,15 @@ export type Produto = {
   atualizado_em: string | null;
 };
 
-const SUPABASE_URL = "https://aizxtktxnlhdrmqyiiam.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_Wu34cKpAube7_PF4erf2cQ_Sy7ajR8k";
-
-const FIELDS = [
-  "id_publico",
-  "codigo",
-  "referencia",
-  "nome",
-  "categoria",
-  "material",
-  "descricao",
-  "preco",
-  "preco_promocional",
-  "estoque",
-  "disponivel",
-  "destaque",
-  "imagem_url",
-  "imagem_thumb_url",
-  "atualizado_em",
-].join(",");
-
 export async function fetchCatalogo(): Promise<Produto[]> {
-  const url = `${SUPABASE_URL}/rest/v1/catalogo_publico?select=${FIELDS}&order=destaque.desc,nome.asc`;
-  const res = await fetch(url, {
+  const res = await fetch("/catalogo.json", {
     headers: {
-      apikey: SUPABASE_PUBLISHABLE_KEY,
       Accept: "application/json",
     },
   });
   if (!res.ok) throw new Error("Não foi possível carregar o catálogo.");
   return (await res.json()) as Produto[];
 }
-
 export const catalogoQuery = {
   queryKey: ["catalogo_publico"],
   queryFn: fetchCatalogo,
