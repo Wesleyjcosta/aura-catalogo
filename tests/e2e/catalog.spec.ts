@@ -38,7 +38,7 @@ const catalogo = [
 ];
 
 test.beforeEach(async ({ page }) => {
-  await page.route(/\/rest\/v1\/catalogo_publico\?/, async (route) => {
+  await page.route(/\/catalogo\.json(?:\?.*)?$/, async (route) => {
     await route.fulfill({
       status: 200,
       contentType: "application/json",
@@ -47,29 +47,61 @@ test.beforeEach(async ({ page }) => {
   });
 });
 
-test("home, busca e categorias funcionam sem depender do backend real", async ({ page }) => {
+test("home, busca e categorias funcionam com catalogo estatico", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page.getByRole("heading", { name: /Acessórios que transformam o básico/i })).toBeVisible();
-  await expect(page.getByText("2 peças")).toBeVisible();
-  await expect(page.getByRole("region", { name: "Descubra os detalhes da bolsa AURA" })).toHaveCount(1);
+  await expect(
+    page.getByRole("heading", { name: "Escolha sua próxima peça" }),
+  ).toBeVisible();
 
-  const bolsaCard = page.getByRole("article").filter({ hasText: "Bolsa Elegance Nude" });
+  await expect(page.getByText("2 peças", { exact: true })).toBeVisible();
+
+  await expect(
+    page.getByRole("region", { name: "Explore os detalhes da bolsa AURA" }),
+  ).toHaveCount(1);
+
+  const bolsaCard = page
+    .getByRole("article")
+    .filter({ hasText: "Bolsa Elegance Nude" });
+
   await expect(bolsaCard).toBeVisible();
   await expect(bolsaCard.getByText(/195,00/)).toBeVisible();
 
-  const colarCard = page.getByRole("article").filter({ hasText: "Colar Dourado AURA" });
+  const colarCard = page
+    .getByRole("article")
+    .filter({ hasText: "Colar Dourado AURA" });
+
   await expect(colarCard.getByText("Oferta")).toBeVisible();
 
-  await page.getByRole("searchbox", { name: "Buscar produtos" }).fill("Bolsa");
-  await expect(page.getByRole("button", { name: "Ver detalhes de Bolsa Elegance Nude" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Ver detalhes de Colar Dourado AURA" })).toHaveCount(0);
+  const search = page.getByRole("searchbox", { name: "Buscar produtos" });
 
-  await page.getByRole("searchbox", { name: "Buscar produtos" }).fill("");
+  await search.fill("Bolsa");
+
+  await expect(
+    page.getByRole("button", { name: "Ver detalhes de Bolsa Elegance Nude" }),
+  ).toBeVisible();
+
+  await expect(
+    page.getByRole("button", { name: "Ver detalhes de Colar Dourado AURA" }),
+  ).toHaveCount(0);
+
+  await search.fill("");
+
   await page.getByRole("button", { name: "Colares" }).click();
-  await expect(page.getByRole("button", { name: "Ver detalhes de Colar Dourado AURA" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Ver detalhes de Bolsa Elegance Nude" })).toHaveCount(0);
 
-  await page.getByRole("searchbox", { name: "Buscar produtos" }).fill("produto inexistente");
-  await expect(page.getByRole("heading", { name: "Nenhuma peça encontrada" })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Ver detalhes de Colar Dourado AURA" }),
+  ).toBeVisible();
+
+  await expect(
+    page.getByRole("button", { name: "Ver detalhes de Bolsa Elegance Nude" }),
+  ).toHaveCount(0);
+
+  await page.getByRole("button", { name: "Todos" }).click();
+
+  await search.fill("produto inexistente");
+
+  await expect(
+    page.getByRole("heading", { name: "Nenhuma peça encontrada" }),
+  ).toBeVisible();
 });
