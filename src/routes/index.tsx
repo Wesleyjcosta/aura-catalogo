@@ -1,21 +1,23 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { catalogoQuery, type Produto } from "@/lib/catalog";
-import { CartProvider, useCart } from "@/lib/cart";
-import { ProductGrid } from "@/components/aura/ProductGrid";
-import { ProductStory } from "@/components/aura/ProductStory";
-import { ProductSheet } from "@/components/aura/ProductSheet";
 import { CartBar } from "@/components/aura/CartBar";
 import { CartSheet } from "@/components/aura/CartSheet";
+import {
+  CatalogControls,
+  type CatalogCategory,
+} from "@/components/aura/CatalogControls";
+import { ProductGrid } from "@/components/aura/ProductGrid";
+import { ProductSheet } from "@/components/aura/ProductSheet";
+import { ProductStory } from "@/components/aura/ProductStory";
 import { StoreHeader } from "@/components/aura/StoreHeader";
-import { CatalogControls, type CatalogCategory } from "@/components/aura/CatalogControls";
 import { STORE_NAME } from "@/config/store";
+import { CartProvider, useCart } from "@/lib/cart";
+import { catalogoQuery, type Produto } from "@/lib/catalog";
 
 const TITLE = "AURA — Joias & Acessórios | Catálogo online";
 const DESCRIPTION =
   "Explore a coleção AURA de joias e acessórios: peças selecionadas, preços atualizados e pedido direto pelo WhatsApp.";
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,7 +37,7 @@ export const Route = createFileRoute("/")({
   ),
 });
 
-function normalizarCategoria(valor: string) {
+function normalizarTexto(valor: string) {
   return valor
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -58,13 +60,20 @@ function categoriaCanonica(normalizada: string) {
     oculos: "Óculos",
     acessorio: "Acessórios",
     acessorios: "Acessórios",
+    mochila: "Mochilas",
+    mochilas: "Mochilas",
+    semijoia: "Semijoias",
+    semijoias: "Semijoias",
+    semojoia: "Semijoias",
+    semojoias: "Semijoias",
   };
+
   return aliases[normalizada] ?? null;
 }
 
 function categoriaCorresponde(categoriaProduto: string, categoriaSelecionada: string) {
-  const produtoNormalizado = normalizarCategoria(categoriaProduto);
-  const selecionadaNormalizada = normalizarCategoria(categoriaSelecionada);
+  const produtoNormalizado = normalizarTexto(categoriaProduto);
+  const selecionadaNormalizada = normalizarTexto(categoriaSelecionada);
   const produtoCanonico = categoriaCanonica(produtoNormalizado);
   const selecionadaCanonica = categoriaCanonica(selecionadaNormalizada);
 
@@ -93,19 +102,24 @@ function Storefront() {
       { label: "Anéis", value: "Anéis" },
       { label: "Óculos", value: "Óculos" },
       { label: "Acessórios", value: "Acessórios" },
+      { label: "Mochilas", value: "Mochilas" },
+      { label: "Semijoias", value: "Semijoias" },
     ];
 
     const conhecidos = new Set(
-      padrao.slice(1).map((item) => normalizarCategoria(item.value)),
+      padrao.slice(1).map((item) => normalizarTexto(item.value)),
     );
     const extras = new Map<string, string>();
 
     (data ?? []).forEach((produto) => {
       const original = produto.categoria?.trim();
       if (!original) return;
-      const normalizada = normalizarCategoria(original);
+
+      const normalizada = normalizarTexto(original);
       const canonica = categoriaCanonica(normalizada);
+
       if (canonica) return;
+
       if (!conhecidos.has(normalizada) && !extras.has(normalizada)) {
         extras.set(normalizada, original);
       }
@@ -119,24 +133,58 @@ function Storefront() {
   }, [data]);
 
   const produtos = useMemo(() => {
-    const termo = busca.trim().toLowerCase();
-    return (data ?? []).filter((p) => {
+    const termo = normalizarTexto(busca);
+
+    return (data ?? []).filter((produto) => {
       const catOk =
-        categoria === "Todos" || categoriaCorresponde(p.categoria ?? "", categoria);
+        categoria === "Todos" ||
+        categoriaCorresponde(produto.categoria ?? "", categoria);
+
       if (!catOk) return false;
       if (!termo) return true;
-      return [p.nome, p.codigo, p.referencia, p.categoria, p.material]
+
+      return [
+        produto.nome,
+        produto.codigo,
+        produto.referencia,
+        produto.categoria,
+        produto.material,
+      ]
         .filter(Boolean)
-        .some((v) => String(v).toLowerCase().includes(termo));
+        .some((valor) => normalizarTexto(String(valor)).includes(termo));
     });
   }, [data, busca, categoria]);
+
+  const contador = produtos.length === 1 ? "1 peça" : `${produtos.length} peças`;
 
   return (
     <div id="inicio" className="min-h-screen bg-background pb-28">
       <StoreHeader count={count} onCartOpen={() => setSacolaAberta(true)} />
       <ProductStory />
 
-      <main id="colecoes" className="mx-auto max-w-6xl px-4">
+      <main id="colecoes" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-5 pt-10 sm:pt-14 lg:flex-row lg:items-end lg:justify-between lg:pt-16">
+          <div>
+            <p className="text-[9px] font-semibold uppercase tracking-[0.28em] text-gold-strong">
+              Coleção AURA
+            </p>
+            <h1 className="mt-2 max-w-3xl font-display text-4xl leading-[0.98] text-foreground sm:text-5xl lg:text-[56px]">
+              Escolha sua próxima peça
+            </h1>
+            <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+              Uma seleção para descobrir com calma — detalhes, acabamentos e peças
+              que acompanham o seu estilo.
+            </p>
+          </div>
+
+          <p
+            className="shrink-0 pb-1 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground"
+            aria-live="polite"
+          >
+            {isLoading ? "Carregando…" : contador}
+          </p>
+        </div>
+
         <CatalogControls
           busca={busca}
           onBuscaChange={setBusca}
@@ -144,20 +192,6 @@ function Storefront() {
           onCategoriaChange={setCategoria}
           categorias={categorias}
         />
-
-        <div className="mt-7 flex items-end justify-between gap-4">
-          <div>
-            <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-muted-foreground">
-              Coleção
-            </p>
-            <h1 className="font-display text-3xl leading-tight text-foreground sm:text-4xl">
-              Escolha sua próxima peça
-            </h1>
-          </div>
-          <p className="shrink-0 text-xs text-muted-foreground" aria-live="polite">
-            {isLoading ? "Carregando…" : `${produtos.length} peças`}
-          </p>
-        </div>
 
         <ProductGrid
           produtos={produtos}
@@ -169,8 +203,10 @@ function Storefront() {
         />
       </main>
 
-      <footer className="mx-auto mt-14 max-w-6xl px-4 pb-6 text-center">
-        <p className="font-display text-lg tracking-[0.3em] text-foreground">{STORE_NAME}</p>
+      <footer className="mx-auto mt-20 max-w-7xl px-4 pb-6 text-center sm:px-6 lg:px-8">
+        <p className="font-display text-lg tracking-[0.3em] text-foreground">
+          {STORE_NAME}
+        </p>
         <p className="mt-1 text-[11px] text-muted-foreground">
           Pedidos e dúvidas pelo WhatsApp · disponibilidade, pagamento e retirada na loja
           confirmados pela equipe AURA.
